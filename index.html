@@ -1,198 +1,211 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hema Sundar | Portfolio</title>
-<style>
-:root {
-  --bg:#0b1020;
-  --card:#141c31;
-  --text:#f4f7ff;
-  --muted:#aab6d3;
-  --blue:#65a8ff;
-  --purple:#a78bfa;
-}
-* { box-sizing:border-box; scroll-behavior:smooth; }
-body {
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.6;
-}
-header {
-  position:sticky; top:0; z-index:5;
-  background:#0b1020ee;
-  border-bottom:1px solid #27314a;
-  padding:14px 5%;
-  display:flex; justify-content:space-between;
-  align-items:center; gap:12px;
-}
-.logo { font-weight:bold; color:var(--blue); }
-nav { display:flex; flex-wrap:wrap; gap:12px; }
-a { color:var(--blue); text-decoration:none; }
-nav a { font-size:13px; color:var(--text); }
-nav a:hover { color:var(--blue); }
-section { padding:65px 7%; scroll-margin-top:65px; }
-.hero {
-  min-height:75vh;
-  display:flex; flex-direction:column;
-  justify-content:center; align-items:flex-start;
-  background:radial-gradient(ellipse at top right,#27376a55,transparent 65%);
-}
-.tag { color:var(--blue); font-weight:bold; }
-h1 { font-size:clamp(36px,8vw,62px); line-height:1.1; margin:12px 0; }
-h2 { font-size:30px; margin-top:0; }
-h3 { margin-top:0; }
-p { color:var(--muted); }
-.hero p { max-width:560px; }
-.btn {
-  display:inline-block; padding:11px 18px;
-  border-radius:9px; background:var(--blue);
-  color:#081225; font-weight:bold; margin:10px 8px 0 0;
-}
-.btn.outline { background:transparent; color:var(--blue); border:1px solid var(--blue); }
-.grid {
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
-  gap:15px;
-}
-.card {
-  background:var(--card); border:1px solid #283550;
-  padding:20px; border-radius:15px;
-}
-.card p { font-size:14px; }
-.chip {
-  display:inline-block; background:#263654;
-  color:#dce8ff; padding:6px 10px;
-  border-radius:20px; margin:4px; font-size:13px;
-}
-.contact { text-align:center; }
-footer { padding:22px; text-align:center; color:var(--muted); border-top:1px solid #27314a; }
-#topBtn {
-  position:fixed; bottom:18px; right:18px;
-  border:0; border-radius:50%; padding:12px;
-  background:var(--blue); cursor:pointer;
-}
-@media(min-width:700px) {
-  .hero { padding-top:100px; padding-bottom:100px; }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hema Sundar Kuna | Student Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --accent-color: #38bdf8;
+            --btn-bg: #334155;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 10px;
+        }
+
+        h1 {
+            color: var(--accent-color);
+            margin-bottom: 8px;
+        }
+
+        /* Filter Controls */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: var(--btn-bg);
+            color: var(--text-color);
+            border: 1px solid #475569;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.2s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--accent-color);
+            color: #0f172a;
+            font-weight: bold;
+        }
+
+        /* Project Cards */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #334155;
+            transition: transform 0.2s ease;
+        }
+
+        .card.hidden {
+            display: none;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #0284c7;
+            color: white;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            max-width: 600px;
+            margin: 50px auto 30px;
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #475569;
+            background-color: #0f172a;
+            color: white;
+        }
+
+        .contact-form button {
+            background-color: var(--accent-color);
+            color: #0f172a;
+            font-weight: bold;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">HSR.dev</div>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+    <header>
+        <h1>Hema Sundar Kuna</h1>
+        <p>Computer Science Student & Aspiring Software Engineer</p>
+    </header>
 
-<main>
-<section class="hero" id="home">
-  <div class="tag">CSE STUDENT · ASPIRING DEVELOPER</div>
-  <h1>Hi, I'm<br><span style="color:var(--blue)">Hema Sundar Rao</span></h1>
-  <h3>Learning today. Building tomorrow.</h3>
-  <p>
-    I am a Computer Science Engineering student who enjoys
-    learning programming, building websites, and exploring technology.
-    Welcome to my personal portfolio!
-  </p>
-  <div>
-    <a class="btn" href="#projects">Explore My Projects ↓</a>
-    <a class="btn outline" href="#contact">Contact Me</a>
-  </div>
-</section>
+    <!-- Interactive Filters -->
+    <div class="controls">
+        <button class="filter-btn active" onclick="filterProjects('all')">All</button>
+        <button class="filter-btn" onclick="filterProjects('cpp')">C++</button>
+        <button class="filter-btn" onclick="filterProjects('dbms')">Database / SQL</button>
+        <button class="filter-btn" onclick="filterProjects('web')">Web Dev</button>
+    </div>
 
-<section id="about">
-  <div class="tag">GET TO KNOW ME</div>
-  <h2>About Me</h2>
-  <div class="card">
-    <p>
-      Hello! I'm Hema Sundar Rao, a CSE student interested in
-      web development, software engineering, and innovative projects.
-      I am developing my technical skills through practice and
-      hands-on learning. My goal is to create useful digital solutions
-      and continue growing as a developer.
-    </p>
-    <p><strong>Education:</strong> Computer Science Engineering</p>
-    <p><strong>Interests:</strong> Web Development, IoT, Programming</p>
-  </div>
-</section>
+    <!-- Dynamic Projects Grid -->
+    <div class="projects-grid">
+        <div class="card" data-category="cpp">
+            <span class="tag">C++</span>
+            <h3>Data Structures & Algorithms Logic</h3>
+            <p>Implementation of core data structures, algorithms, and modular design patterns in C++.</p>
+        </div>
 
-<section id="skills">
-  <div class="tag">WHAT I'M LEARNING</div>
-  <h2>My Skills</h2>
-  <div class="card">
-    <span class="chip">HTML</span>
-    <span class="chip">CSS</span>
-    <span class="chip">JavaScript</span>
-    <span class="chip">Java</span>
-    <span class="chip">Python</span>
-    <span class="chip">C Programming</span>
-    <span class="chip">Problem Solving</span>
-    <p>Replace these with the skills you have actually learned.</p>
-  </div>
-</section>
+        <div class="card" data-category="dbms">
+            <span class="tag">DBMS</span>
+            <h3>Relational Database System</h3>
+            <p>Database schema design featuring ER modeling, primary/foreign key constraints, and normalized tables.</p>
+        </div>
 
-<section id="projects">
-  <div class="tag">MY WORK</div>
-  <h2>Featured Projects</h2>
-  <div class="grid">
-    <article class="card">
-      <h3>🌐 Personal Portfolio</h3>
-      <p>A responsive website introducing my background,
-      skills, interests, and projects.</p>
-      <span class="chip">HTML</span><span class="chip">CSS</span>
-    </article>
-    <article class="card">
-      <h3>💡 Automatic Night Lamp</h3>
-      <p>A beginner electronics project that switches a lamp
-      based on surrounding light when the required sensor
-      circuit is connected.</p>
-      <span class="chip">IoT / Electronics</span>
-    </article>
-    <article class="card">
-      <h3>🎓 Student Task Manager</h3>
-      <p>A planned web app to organize assignments and
-      track study tasks.</p>
-      <span class="chip">JavaScript</span>
-    </article>
-  </div>
-</section>
+        <div class="card" data-category="web">
+            <span class="tag">Web Dev</span>
+            <h3>Interactive Student Portfolio</h3>
+            <p>Single-page web application hosted on GitHub Pages with live project filtering and responsive UI.</p>
+        </div>
+    </div>
 
-<section id="contact" class="contact">
-  <div class="tag">LET'S CONNECT</div>
-  <h2>Contact Me</h2>
-  <p>Have a project idea or want to connect? Send me a message.</p>
-  <a class="btn" id="emailBtn" href="mailto:YOUR_EMAIL@example.com">
-    ✉ Email Me
-  </a>
-  <p style="font-size:13px">
-    Replace the sample email address with your own before publishing.
-  </p>
-</section>
-</main>
+    <!-- Contact Form App Feature -->
+    <section class="contact-section">
+        <h2>Get in Touch</h2>
+        <form class="contact-form" onsubmit="handleContact(event)">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="message" rows="4" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        <p id="form-status" style="margin-top: 10px; font-weight: bold;"></p>
+    </section>
 
-<footer>
-  <p>© <span id="year"></span> Hema Sundar Rao · Personal Portfolio</p>
-  Built with HTML, CSS & JavaScript
-</footer>
+    <!-- Web Application Logic -->
+    <script>
+        // 1. Dynamic Filtering Logic
+        function filterProjects(category) {
+            const cards = document.querySelectorAll('.card');
+            const buttons = document.querySelectorAll('.filter-btn');
 
-<button id="topBtn" aria-label="Back to top">↑</button>
+            // Update active button styling
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
 
-<script>
-document.getElementById("year").textContent =
-  new Date().getFullYear();
+            // Show or hide project cards
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
 
-document.getElementById("topBtn").addEventListener("click", function() {
-  window.scrollTo({top:0, behavior:"smooth"});
-});
-</script>
+        // 2. Interactive Form Handling Logic
+        function handleContact(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const status = document.getElementById('form-status');
+
+            status.style.color = '#38bdf8';
+            status.innerText = `Thanks for reaching out, ${name}! Your message has been submitted.`;
+
+            // Reset form fields
+            e.target.reset();
+        }
+    </script>
+
 </body>
 </html>
-
