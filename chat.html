@@ -159,7 +159,7 @@
         currentUser = firebase.auth().currentUser;
         statusEl.textContent = "● Connected";
         statusEl.style.color = "#42d6b5";
-        listener = db.ref("messages").limitToLast(100);
+        listener = db.ref("messages");
         listener.on("value", renderMessages, err => {
           showError("Cannot read messages. Check your Realtime Database rules and URL. (" + err.message + ")");
         });
