@@ -114,6 +114,7 @@
       return new Date(ts || Date.now()).toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
     }
      function renderMessages(snapshot) {
+       console.log("Messages received:", snapshot.numChildren());
       const rows = [];
       snapshot.forEach(child => rows.push({ key:child.key, ...child.val() }));
       rows.sort((a,b) => (a.timestamp || 0) - (b.timestamp || 0));
