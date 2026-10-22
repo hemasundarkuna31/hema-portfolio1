@@ -80,7 +80,7 @@ event.preventDefault();clearError();const text=messageInput.value.trim(),name=na
 if(!joined||!currentUser||!db){showError("Enter a display name and tap Join chat first.");return}if(!text)return;
 sendBtn.disabled=true;
 try{await writeMessage(currentUser.uid,name,text);messageInput.value="";messageInput.focus();
-window.setTimeout(async()=>{try{await writeMessage("chatconnect-bot","ChatConnect Bot 🤖",getBotReply(text))}catch(error){showError("Your message was sent, but the bot reply could not be saved: "+error.message)}finally{sendBtn.disabled=false}},700)
+window.setTimeout(async()=>{try{await writeMessage(currentUser.uid,"ChatConnect Bot 🤖",getBotReply(text))}catch(error){showError("Your message was sent, but the bot reply could not be saved: "+error.message)}finally{sendBtn.disabled=false}},700)
 }catch(error){showError("Message could not be sent: "+error.message);sendBtn.disabled=false}
 });
 startApp();
