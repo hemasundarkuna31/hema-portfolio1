@@ -1,213 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ChatConnect — Real-Time Chat</title>
-  <style>
-    :root { --bg:#0b1220; --panel:#111c30; --panel2:#17243b; --text:#edf4ff; --muted:#a8b6cc; --accent:#6d8cff; --accent2:#42d6b5; --line:#293852; }
-    * { box-sizing:border-box; }
-    body { margin:0; min-height:100vh; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:var(--text); background:radial-gradient(circle at top left,#1c3155 0,#0b1220 45%,#080d17 100%); display:flex; justify-content:center; padding:18px; }
-    .app { width:100%; max-width:760px; display:flex; flex-direction:column; min-height:calc(100vh - 36px); border:1px solid var(--line); border-radius:22px; overflow:hidden; background:rgba(17,28,48,.96); box-shadow:0 20px 60px #0006; }
-    header { padding:20px; display:flex; align-items:center; gap:12px; border-bottom:1px solid var(--line); background:#101a2c; }
-    .logo { width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#9b7bff);font-size:23px; }
-    h1 { margin:0;font-size:21px;letter-spacing:.2px; } .sub { margin:4px 0 0;color:var(--muted);font-size:13px; }
-    .status { margin-left:auto; font-size:12px;color:var(--accent2);white-space:nowrap; }
-    .setup { padding:16px 18px; display:flex; gap:10px; align-items:end; flex-wrap:wrap; border-bottom:1px solid var(--line); }
-    .field { flex:1; min-width:150px; } label { display:block;font-size:12px;color:var(--muted);margin:0 0 6px; }
-    input,button { font:inherit; } input { width:100%; border:1px solid var(--line); background:#0b1425;color:var(--text);padding:12px 13px;border-radius:12px;outline:none; } input:focus { border-color:var(--accent); }
-    button { border:0;border-radius:12px;padding:12px 16px;background:var(--accent);color:white;font-weight:700;cursor:pointer; } button:disabled { opacity:.45;cursor:not-allowed; }
-    .messages { padding:20px; flex:1; overflow:auto; display:flex; flex-direction:column; gap:12px; min-height:280px; max-height:55vh; }
-    .empty { margin:auto;text-align:center;color:var(--muted);line-height:1.6;max-width:330px; }
-    .msg { max-width:86%; align-self:flex-start; } .msg.mine { align-self:flex-end; }
-    .meta { display:flex;gap:8px;align-items:center;font-size:11px;color:var(--muted);margin:0 7px 5px; }
-    .bubble { padding:11px 14px;border-radius:16px 16px 16px 5px;background:var(--panel2);line-height:1.45;overflow-wrap:anywhere;white-space:pre-wrap; }
-    .mine .bubble { background:linear-gradient(135deg,#526fe0,#795ce6);border-radius:16px 16px 5px 16px; }
-    .composer { padding:16px; display:flex; gap:10px; border-top:1px solid var(--line); background:#101a2c; }
-    .composer input { flex:1; min-width:0; } .notice { padding:0 18px 14px;color:var(--muted);font-size:11px;line-height:1.5; }
-    .error { color:#ffaaa8;font-size:13px;padding:0 18px 12px;display:none;white-space:pre-wrap;overflow-wrap:anywhere; }
-    .tag { font-size:10px;color:#c9d5e9;border:1px solid var(--line);border-radius:99px;padding:3px 7px; }
-    @media(max-width:480px){ body{padding:8px}.app{min-height:calc(100vh - 16px);border-radius:16px} header{padding:16px}.status{font-size:10px}.messages{padding:14px}.composer{padding:12px} h1{font-size:19px} }
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChatConnect — Real-Time Chatbot</title>
+<style>
+:root{--panel:#111c30;--panel2:#17243b;--text:#edf4ff;--muted:#a8b6cc;--accent:#6d8cff;--accent2:#42d6b5;--line:#293852}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at top left,#1c3155 0,#0b1220 45%,#080d17 100%);display:flex;justify-content:center;padding:18px}
+.app{width:100%;max-width:760px;display:flex;flex-direction:column;min-height:calc(100vh - 36px);border:1px solid var(--line);border-radius:22px;overflow:hidden;background:rgba(17,28,48,.96);box-shadow:0 20px 60px #0006}
+header{padding:20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line);background:#101a2c}.logo{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#9b7bff);font-size:23px}
+h1{margin:0;font-size:21px;letter-spacing:.2px}.sub{margin:4px 0 0;color:var(--muted);font-size:13px}.status{margin-left:auto;font-size:12px;color:var(--accent2);white-space:nowrap}
+.setup{padding:16px 18px;display:flex;gap:10px;align-items:end;flex-wrap:wrap;border-bottom:1px solid var(--line)}.field{flex:1;min-width:150px}label{display:block;font-size:12px;color:var(--muted);margin:0 0 6px}
+input,button{font:inherit}input{width:100%;border:1px solid var(--line);background:#0b1425;color:var(--text);padding:12px 13px;border-radius:12px;outline:none}input:focus{border-color:var(--accent)}
+button{border:0;border-radius:12px;padding:12px 16px;background:var(--accent);color:white;font-weight:700;cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}
+.messages{padding:20px;flex:1;overflow:auto;display:flex;flex-direction:column;gap:12px;min-height:280px;max-height:55vh}.empty{margin:auto;text-align:center;color:var(--muted);line-height:1.6;max-width:330px}
+.msg{max-width:86%;align-self:flex-start}.msg.mine{align-self:flex-end}.meta{display:flex;gap:8px;align-items:center;font-size:11px;color:var(--muted);margin:0 7px 5px}
+.bubble{padding:11px 14px;border-radius:16px 16px 16px 5px;background:var(--panel2);line-height:1.45;overflow-wrap:anywhere;white-space:pre-wrap}.mine .bubble{background:linear-gradient(135deg,#526fe0,#795ce6);border-radius:16px 16px 5px 16px}
+.composer{padding:16px;display:flex;gap:10px;border-top:1px solid var(--line);background:#101a2c}.composer input{flex:1;min-width:0}.notice{padding:0 18px 14px;color:var(--muted);font-size:11px;line-height:1.5}
+.error{color:#ffaaa8;font-size:13px;padding:0 18px 12px;display:none;white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:480px){body{padding:8px}.app{min-height:calc(100vh - 16px);border-radius:16px}header{padding:16px}.status{font-size:10px}.messages{padding:14px}.composer{padding:12px}h1{font-size:19px}}
+</style>
 </head>
 <body>
-  <main class="app">
-    <header>
-      <div class="logo" aria-hidden="true">✦</div>
-      <div><h1>ChatConnect</h1><p class="sub">Simple • Fast • Real-time messaging</p></div>
-      <div class="status" id="status">Connecting…</div>
-    </header>
-    <section class="setup">
-      <div class="field">
-        <label for="name">Your display name</label>
-        <input id="name" maxlength="24" placeholder="e.g. Student 1" autocomplete="nickname">
-      </div>
-      <button id="joinBtn" type="button">Join chat</button>
-    </section>
-    <section class="messages" id="messages" aria-live="polite">
-      <div class="empty">Connecting to the chat…</div>
-    </section>
-    <div class="error" id="error" role="alert"></div>
-    <form class="composer" id="composer">
-      <input id="messageInput" maxlength="500" placeholder="Write a message…" autocomplete="off" disabled>
-      <button id="sendBtn" type="submit" disabled>Send</button>
-    </form>
-    <div class="notice">College demo: messages are visible to everyone who can access this chat. Use a demo name; never share passwords, phone numbers, addresses, or other private information.</div>
-  </main>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyDSa8n8TORIKbudEWQzBykk18pTkfgh0d0",
-      authDomain: "chatconnect-8b41c.firebaseapp.com",
-      databaseURL: "https://chatconnect-8b41c-default-rtdb.firebaseio.com",
-      projectId: "chatconnect-8b41c",
-      storageBucket: "chatconnect-8b41c.firebasestorage.app",
-      messagingSenderId: "502709541242",
-      appId: "1:502709541242:web:3c5dcbe740a01dba16dec3"
-    };
-
-    const statusEl = document.getElementById("status");
-    const errorEl = document.getElementById("error");
-    const nameInput = document.getElementById("name");
-    const joinBtn = document.getElementById("joinBtn");
-    const messagesEl = document.getElementById("messages");
-    const composer = document.getElementById("composer");
-    const messageInput = document.getElementById("messageInput");
-    const sendBtn = document.getElementById("sendBtn");
-
-    let db = null;
-    let currentUser = null;
-    let joined = false;
-    let listener = null;
-
-    function showError(message) {
-      errorEl.textContent = message;
-      errorEl.style.display = "block";
-    }
-    function clearError() {
-      errorEl.textContent = "";
-      errorEl.style.display = "none";
-    }
-    function formatTime(ts) {
-      const date = ts ? new Date(ts) : new Date();
-      return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-    }
-    function renderMessages(snapshot) {
-      const rows = [];
-      snapshot.forEach(child => {
-        const value = child.val();
-        if (value && typeof value === "object") rows.push({ key: child.key, ...value });
-      });
-      rows.sort((a, b) => Number(a.timestamp || 0) - Number(b.timestamp || 0));
-      messagesEl.replaceChildren();
-
-      if (!rows.length) {
-        const empty = document.createElement("div");
-        empty.className = "empty";
-        empty.textContent = "No messages yet. Start the conversation 👋";
-        messagesEl.appendChild(empty);
-        return;
-      }
-
-      rows.forEach(item => {
-        const wrap = document.createElement("div");
-        wrap.className = "msg" + (currentUser && item.uid === currentUser.uid ? " mine" : "");
-        const meta = document.createElement("div");
-        meta.className = "meta";
-        const who = document.createElement("span");
-        who.textContent = item.name || "Guest";
-        const time = document.createElement("span");
-        time.textContent = formatTime(item.timestamp);
-        meta.append(who, time);
-
-        const bubble = document.createElement("div");
-        bubble.className = "bubble";
-        bubble.textContent = item.text || "";
-        wrap.append(meta, bubble);
-        messagesEl.appendChild(wrap);
-      });
-      messagesEl.scrollTop = messagesEl.scrollHeight;
-    }
-
-    async function startApp() {
-      try {
-        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-        db = firebase.database();
-
-        statusEl.textContent = "Signing in…";
-        await firebase.auth().signInAnonymously();
-        currentUser = firebase.auth().currentUser;
-
-        statusEl.textContent = "● Connected";
-        statusEl.style.color = "#42d6b5";
-
-        // Listen to the whole messages collection and report listener errors visibly.
-        listener = db.ref("messages");
-        listener.on("value", renderMessages, error => {
-          statusEl.textContent = "Read error";
-          showError("Cannot read messages: " + error.message);
-        });
-      } catch (error) {
-        statusEl.textContent = "Connection issue";
-        showError("Firebase connection failed: " + (error && error.message ? error.message : String(error)) +
-          "\nCheck that Anonymous sign-in is enabled and your Realtime Database rules allow authenticated users.");
-      }
-    }
-
-    joinBtn.addEventListener("click", () => {
-      clearError();
-      const name = nameInput.value.trim();
-      if (!name) {
-        showError("Please enter a display name first.");
-        nameInput.focus();
-        return;
-      }
-      if (!currentUser || !db) {
-        showError("Firebase is not connected yet. Wait until the status says Connected.");
-        return;
-      }
-      joined = true;
-      nameInput.disabled = true;
-      joinBtn.textContent = "Joined ✓";
-      joinBtn.disabled = true;
-      messageInput.disabled = false;
-      sendBtn.disabled = false;
-      messageInput.focus();
-    });
-
-    composer.addEventListener("submit", async event => {
-      event.preventDefault();
-      clearError();
-      const text = messageInput.value.trim();
-      const name = nameInput.value.trim();
-
-      if (!joined || !currentUser || !db) {
-        showError("Enter a display name and tap Join chat first.");
-        return;
-      }
-      if (!text) return;
-
-      sendBtn.disabled = true;
-      try {
-        // Await the database write so any permission/network failure is shown.
-        await db.ref("messages").push({
-          uid: currentUser.uid,
-          name,
-          text,
-          timestamp: firebase.database.ServerValue.TIMESTAMP
-        });
-        messageInput.value = "";
-        messageInput.focus();
-      } catch (error) {
-        showError("Message saved failed: " + (error && error.message ? error.message : String(error)));
-      } finally {
-        sendBtn.disabled = false;
-      }
-    });
-
-    startApp();
-  </script>
+<main class="app">
+<header><div class="logo" aria-hidden="true">✦</div><div><h1>ChatConnect</h1><p class="sub">Real-time chat + automatic chatbot replies</p></div><div class="status" id="status">Connecting…</div></header>
+<section class="setup"><div class="field"><label for="name">Your display name</label><input id="name" maxlength="24" placeholder="e.g. Student 1" autocomplete="nickname"></div><button id="joinBtn" type="button">Join chat</button></section>
+<section class="messages" id="messages" aria-live="polite"><div class="empty">Connecting to the chat…</div></section>
+<div class="error" id="error" role="alert"></div>
+<form class="composer" id="composer"><input id="messageInput" maxlength="500" placeholder="Write a message…" autocomplete="off" disabled><button id="sendBtn" type="submit" disabled>Send</button></form>
+<div class="notice">Chatbot replies are simple rule-based demo responses generated in this browser, not an AI service. Chat messages are visible to people who can access this database. Use demo names and never share private information.</div>
+</main>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script>
+const firebaseConfig={
+apiKey:"AIzaSyDSa8n8TORIKbudEWQzBykk18pTkfgh0d0",
+authDomain:"chatconnect-8b41c.firebaseapp.com",
+databaseURL:"https://chatconnect-8b41c-default-rtdb.firebaseio.com",
+projectId:"chatconnect-8b41c",
+storageBucket:"chatconnect-8b41c.firebasestorage.app",
+messagingSenderId:"502709541242",
+appId:"1:502709541242:web:3c5dcbe740a01dba16dec3"
+};
+const statusEl=document.getElementById("status"),errorEl=document.getElementById("error"),nameInput=document.getElementById("name"),joinBtn=document.getElementById("joinBtn"),messagesEl=document.getElementById("messages"),composer=document.getElementById("composer"),messageInput=document.getElementById("messageInput"),sendBtn=document.getElementById("sendBtn");
+let db=null,currentUser=null,joined=false,listener=null;
+function showError(message){errorEl.textContent=message;errorEl.style.display="block"}
+function clearError(){errorEl.textContent="";errorEl.style.display="none"}
+function formatTime(ts){return new Date(ts||Date.now()).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})}
+function renderMessages(snapshot){
+const rows=[];snapshot.forEach(child=>{const value=child.val();if(value&&typeof value==="object")rows.push({key:child.key,...value})});
+rows.sort((a,b)=>Number(a.timestamp||0)-Number(b.timestamp||0));messagesEl.replaceChildren();
+if(!rows.length){const empty=document.createElement("div");empty.className="empty";empty.textContent="No messages yet. Say hello to the chatbot 👋";messagesEl.appendChild(empty);return}
+rows.forEach(item=>{const wrap=document.createElement("div");wrap.className="msg"+(currentUser&&item.uid===currentUser.uid?" mine":"");const meta=document.createElement("div");meta.className="meta";const who=document.createElement("span");who.textContent=item.name||"Guest";const time=document.createElement("span");time.textContent=formatTime(item.timestamp);meta.append(who,time);const bubble=document.createElement("div");bubble.className="bubble";bubble.textContent=item.text||"";wrap.append(meta,bubble);messagesEl.appendChild(wrap)});
+messagesEl.scrollTop=messagesEl.scrollHeight;
+}
+function getBotReply(message){
+const text=message.toLowerCase().trim();
+if(/^(hi|hello|hey|hii|hai)\b/.test(text))return"Hello! 👋 Welcome to ChatConnect. How can I help you?";
+if(/\bhow are you\b/.test(text))return"I'm doing well, thanks for asking! 😊 How are you?";
+if(/\b(your name|who are you)\b/.test(text))return"I'm ChatConnect Bot 🤖, the automatic helper in this demo.";
+if(/\b(help|what can you do|commands)\b/.test(text))return"Try saying: hello, how are you, what is your name, or tell me a joke.";
+if(/\btime\b/.test(text))return"The current time on this device is "+new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})+".";
+if(/\bdate\b/.test(text))return"Today's date on this device is "+new Date().toLocaleDateString()+".";
+if(/\bjoke\b/.test(text))return"Why did the computer get cold? Because it left its Windows open! 😄";
+if(/\b(thank you|thanks)\b/.test(text))return"You're welcome! 😊";
+if(/\b(bye|goodbye|see you)\b/.test(text))return"Goodbye! 👋 Come chat again soon.";
+if(/\b(project|college|chatconnect)\b/.test(text))return"ChatConnect is a college demo showing real-time messaging with Firebase and automatic rule-based replies.";
+return"Thanks for your message! 😊 I'm a simple demo bot. Type 'help' to see what I can answer."
+}
+async function writeMessage(uid,name,text){return db.ref("messages").push({uid,name,text,timestamp:firebase.database.ServerValue.TIMESTAMP})}
+async function startApp(){
+try{if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);db=firebase.database();statusEl.textContent="Signing in…";await firebase.auth().signInAnonymously();currentUser=firebase.auth().currentUser;statusEl.textContent="● Connected";statusEl.style.color="#42d6b5";
+listener=db.ref("messages").limitToLast(100);listener.on("value",renderMessages,error=>{statusEl.textContent="Read error";showError("Cannot read messages: "+error.message)})}
+catch(error){statusEl.textContent="Connection issue";showError("Firebase connection failed: "+error.message+". Check Anonymous sign-in and database rules.")}
+}
+joinBtn.addEventListener("click",()=>{clearError();const name=nameInput.value.trim();if(!name){showError("Please enter a display name first.");nameInput.focus();return}if(!currentUser||!db){showError("Firebase is not connected yet. Wait until the status says Connected.");return}joined=true;nameInput.disabled=true;joinBtn.textContent="Joined ✓";joinBtn.disabled=true;messageInput.disabled=false;sendBtn.disabled=false;messageInput.focus()});
+composer.addEventListener("submit",async event=>{
+event.preventDefault();clearError();const text=messageInput.value.trim(),name=nameInput.value.trim();
+if(!joined||!currentUser||!db){showError("Enter a display name and tap Join chat first.");return}if(!text)return;
+sendBtn.disabled=true;
+try{await writeMessage(currentUser.uid,name,text);messageInput.value="";messageInput.focus();
+window.setTimeout(async()=>{try{await writeMessage("chatconnect-bot","ChatConnect Bot 🤖",getBotReply(text))}catch(error){showError("Your message was sent, but the bot reply could not be saved: "+error.message)}finally{sendBtn.disabled=false}},700)
+}catch(error){showError("Message could not be sent: "+error.message);sendBtn.disabled=false}
+});
+startApp();
+</script>
 </body>
 </html>
